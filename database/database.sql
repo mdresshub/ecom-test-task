@@ -2,8 +2,8 @@
 -- Table structure for table `orders`
 --
 
-DROP TABLE IF EXISTS `orders`;
-CREATE TABLE `orders`
+DROP TABLE IF EXISTS `orders_origin`;
+CREATE TABLE `orders_origin`
 (
     `customer_id`      int(11) DEFAULT NULL,
     `customer_name`    varchar(12) DEFAULT NULL,
@@ -18,7 +18,7 @@ CREATE TABLE `orders`
 -- Data for table `orders`
 --
 
-INSERT INTO `orders`
+INSERT INTO `orders_origin`
 VALUES (1000001, 'Bruce Wayne', 'Bruce Wayne, 1007 Mountain Drive, Gotham', 'Bruce Wayne, 1007 Mountain Drive, Gotham',
         '{\"items\":[{\"item_type\":\"poster\",\"size_height\":80,\"size_width\":60,\"amount\":2,\"image\":\"/files/poster_1.jpg\"},{\"item_type\":\"poster\",\"size_height\":80,\"size_width\":60,\"amount\":1,\"image\":\"/files/poster_2.jpg\"}]}',
         '2021-01-01 00:00:00', 'ordered'),

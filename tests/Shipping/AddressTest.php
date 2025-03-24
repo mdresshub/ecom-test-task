@@ -2,8 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Shop\Tests\Production;
+namespace Shop\Tests\Shipping;
 
+use Generator;
+use Shop\API\CustomerDataApiMock;
 use Shop\API\Entity\Customer;
 use Shop\Shipping\AddressValidator;
 use Shop\Shipping\Entity\Street;
@@ -16,17 +18,17 @@ final class AddressTest extends TestCase
 	 */
 	public function testAddressSplit(Customer $customer, Street $expectedStreet): void
 	{
-		$addressValidator = new AddressValidator();
-		$street           = $addressValidator->splitStreet($customer);
+		$addressValidator = new AddressValidator(new CustomerDataApiMock());
+		$street = $addressValidator->splitStreet($customer);
 
 		self::assertEquals($expectedStreet->name, $street->name);
 		self::assertEquals($expectedStreet->number, $street->number);
 	}
 
 	/**
-	 * @return \Generator
+	 * @return Generator
 	 */
-	public function dataProviderCustomerAddresses(): \Generator
+	public function dataProviderCustomerAddresses(): Generator
 	{
 		yield 'Customer 1: Barbara Müller' => [
 			new Customer('', '', 'Einsteinstr. 7', '', ''),
@@ -68,7 +70,7 @@ final class AddressTest extends TestCase
 			new Customer('', '', 'Hof 151', '', ''),
 			new Street('Hof', '151'),
 		];
-		yield 'Customer 11: Marie Fenstermach' => [
+		yield 'Customer 11: Marie Fenstermacher' => [
 			new Customer('', '', 'Wald a.A. 125', '', ''),
 			new Street('Wald a.A.', '125'),
 		];

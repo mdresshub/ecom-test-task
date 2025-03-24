@@ -4,20 +4,57 @@ declare(strict_types=1);
 
 namespace Shop\Shipping;
 
+use JsonException;
+use Shop\API\CustomerDataApiMock;
 use Shop\API\Entity\Customer;
 use Shop\Shipping\Entity\Street;
 
 final class AddressValidator
 {
-	/**
-	 * @return Customer[]
-	 */
+    public function __construct(
+        private CustomerDataApiMock $customerDataApiMock,
+    ) {}
+
+    /**
+     * @return array<int, Customer>
+     *
+     * @throws JsonException
+     */
 	public function getAllCustomers(): array
 	{
-		// TODO: Retrieve customers from \Shop\API\CustomerDataApiMock
+        $customerDataJson = $this->customerDataApiMock->getCustomerData();
+		$customerDataArray = \json_decode($customerDataJson, true, 512, JSON_THROW_ON_ERROR);
 
-		return [];
+		$customers = [];
+		foreach ($customerDataArray as $customerData) {
+		    $customers[] = new Customer(
+		        $customerData['firstname'],
+		        $customerData['lastname'],
+		        $customerData['street'],
+		        $customerData['city'],
+		        $customerData['zipCode']
+		    );
+		}
+
+		return $customers;
 	}
+
+    /**
+     * @return array<int, Street>
+     *
+     * @throws JsonException
+     */
+    public function processCustomerStreet(): array
+    {
+        $customers = $this->getAllCustomers();
+
+        $streets = [];
+        foreach ($customers as $customer) {
+            $streets[] = $this->splitStreet($customer);
+        }
+
+        return $streets;
+    }
 
 	/**
 	 * Split a given street string from a customer into
@@ -25,12 +62,17 @@ final class AddressValidator
 	 *
 	 * @param Customer $customer
 	 * @return Street
-	 * @throws \Exception
 	 */
 	public function splitStreet(Customer $customer): Street
 	{
-		// TODO: Implement
+        $street = $customer->getStreet();
 
-		throw new \Exception('method not implemented', 1626964164621);
+        $matches = [];
+        \preg_match('/^(\D+)?\s*(\d.*)?$/', $street, $matches);
+
+        $streetName = isset($matches[1]) ? trim($matches[1]) : '';
+        $houseNumber = isset($matches[2]) ? trim($matches[2]) : '';
+
+        return new Street($streetName, $houseNumber);
 	}
 }

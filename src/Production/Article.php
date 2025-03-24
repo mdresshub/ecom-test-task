@@ -4,20 +4,31 @@ declare(strict_types=1);
 
 namespace Shop\Production;
 
-use Shop\Production\State\Ordered;
+use InvalidArgumentException;
+use Shop\Logger\ExtendedLoggerInterface;
 use Shop\Production\State\StateInterface;
 
-final class Article
+class Article
 {
 	public const TYPE_POSTER_FRAMED = 'poster-framed';
-	public const TYPE_PRINTED_GLASS = 'printed-glass';
 
-	private string $articleType;
+	public const TYPE_PRINTED_GLASS = 'printed-glass';
 
 	private bool $hasGiftWrapping = false;
 
+    /**
+     * @throws InvalidArgumentException Unknown article type
+     */
+    public function __construct(
+        private ExtendedLoggerInterface $logger,
+        private string $articleType,
+        private StateInterface $state,
+    ) {
+        $this->validateType($articleType);
+    }
+
 	/**
-	 * @return string[]
+	 * @return array<int, string>
 	 */
 	public static function getTypes(): array
 	{
@@ -33,23 +44,21 @@ final class Article
 	}
 
 	/**
-	 * @throws \InvalidArgumentException Unknown article type
+	 * @throws InvalidArgumentException Unknown article type
 	 */
-	private static function validateType(string $articleType): void
+	private function validateType(string $articleType): void
 	{
-		if (! self::isTypeValid($articleType)) {
-			throw new \InvalidArgumentException('unknown article type given: ' . $articleType, 1626963396724);
-		}
-	}
+        try {
+            if (!self::isTypeValid($articleType)) {
+                throw new InvalidArgumentException(
+                    'Unknown article type given: ' . $articleType, 1626963396724
+                );
+            }
+        } catch (InvalidArgumentException $exception) {
+            $this->logger->logException($exception);
 
-	/**
-	 * @throws \InvalidArgumentException Unknown article type
-	 */
-	public function __construct(string $articleType)
-	{
-		self::validateType($articleType);
-
-		$this->articleType = $articleType;
+            throw $exception;
+        }
 	}
 
 	public function hasGiftWrapping(): bool
@@ -57,9 +66,6 @@ final class Article
 		return $this->hasGiftWrapping;
 	}
 
-	/**
-	 * @return $this
-	 */
 	public function enableGiftWrapping(): self
 	{
 		$this->hasGiftWrapping = true;
@@ -69,9 +75,15 @@ final class Article
 
 	public function getState(): StateInterface
 	{
-		// TODO: Implement
-		return new Ordered();
+        return $this->state;
 	}
+
+    public function setState(StateInterface $state): self
+    {
+        $this->state = $state;
+
+        return $this;
+    }
 
 	public function getType(): string
 	{
