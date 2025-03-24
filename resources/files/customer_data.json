@@ -1,0 +1,121 @@
+[
+  {
+    "firstname": "Barbara",
+    "lastname": "Müller",
+    "street": "Einsteinstr. 7",
+    "city": "Berlin",
+    "zipCode": "10115"
+  },
+  {
+    "firstname": "Michael",
+    "lastname": "Scholtz",
+    "street": "Einsteinstrasse 7",
+    "city": "München",
+    "zipCode": "80809"
+  },
+  {
+    "firstname": "Ines",
+    "lastname": "Ostermann",
+    "street": "Curd-Jürgens-Str. 30",
+    "city": "Frankfurt",
+    "zipCode": "15230"
+  },
+  {
+    "firstname": "Fabian",
+    "lastname": "Kruger",
+    "street": "Perlcherstr.88 1",
+    "city": "Augsburg",
+    "zipCode": "86179"
+  },
+  {
+    "firstname": "Jana",
+    "lastname": "Neumann",
+    "street": "Rosenheimerstr. 14e-f",
+    "city": "Köln",
+    "zipCode": "50667"
+  },
+  {
+    "firstname": "Anja",
+    "lastname": "Maier",
+    "street": "Bei Fußenkreuz 36",
+    "city": "Duisburg",
+    "zipCode": "47051"
+  },
+  {
+    "firstname": "Tom",
+    "lastname": "Wexler",
+    "street": "Sankt Georgs Kirchhof 26",
+    "city": "Mainz",
+    "zipCode": "55116"
+  },
+  {
+    "firstname": "Jonas",
+    "lastname": "Kuhn",
+    "street": "Mallertshofener Strasse 36c",
+    "city": "Leipzig",
+    "zipCode": "04103"
+  },
+  {
+    "firstname": "Sven",
+    "lastname": "Schweitzer",
+    "street": "Rosenheimerstr. 145 e+f",
+    "city": "Nürnberg",
+    "zipCode": "90402"
+  },
+  {
+    "firstname": "Nicole",
+    "lastname": "Bohm",
+    "street": "Hof 151",
+    "city": "Rosenheim",
+    "zipCode": "57520"
+  },
+  {
+    "firstname": "Marie",
+    "lastname": "Fenstermacher",
+    "street": "Wald a.A. 125",
+    "city": "Erding",
+    "zipCode": "85435"
+  },
+  {
+    "firstname": "Silke",
+    "lastname": "Pabst",
+    "street": "Lindenhof 0",
+    "city": "Passau",
+    "zipCode": "94032"
+  },
+  {
+    "firstname": "Daniela",
+    "lastname": "Frey",
+    "street": "Am Elfenholt",
+    "city": "Bochum",
+    "zipCode": "44787"
+  },
+  {
+    "firstname": "Lukas",
+    "lastname": "Abt",
+    "street": "Am Schießberg 35 357",
+    "city": "Hannover",
+    "zipCode": "30159"
+  },
+  {
+    "firstname": "Janina",
+    "lastname": "Koch",
+    "street": "Idlhofgasse 16A-1",
+    "city": "Dresden",
+    "zipCode": "01067"
+  },
+  {
+    "firstname": "Steffen",
+    "lastname": "Zimmermann",
+    "street": "Kreisbacherstrasse 3\/1\/19",
+    "city": "Ingolstadt",
+    "zipCode": "85049"
+  },
+  {
+    "firstname": "Kristin",
+    "lastname": "Walter",
+    "street": "Höpflergasse 6 \/ 18",
+    "city": "Darmstadt",
+    "zipCode": "64283"
+  }
+]
